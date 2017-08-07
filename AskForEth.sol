@@ -19,6 +19,7 @@ contract AskForEth {
     /* Event for loggin InSuffecientBalance */
     event InSuffecientBalance(uint balance);
     
+    /* 1 ETH = 10^18 Wei */
     uint ONE_ETH = 1000000000000000000;
     
     /*
@@ -34,7 +35,6 @@ contract AskForEth {
      * If the contract has suffecient balance.
      */
     function pleaseSendOne(){
-        /* 1 ETH = 10^18 Wei */
         if(this.balance > ONE_ETH){
             if(hasGiven[msg.sender] == 0){
                 msg.sender.transfer(ONE_ETH);
