@@ -9,7 +9,7 @@ pragma solidity ^0.4.11;
  */
 contract AskForEth {
     
-    /* Owner's wallet address */
+    /* This SmartContract's Owner's wallet address */
     address owner;
     
     /* Map of Address=>amount */
@@ -34,7 +34,7 @@ contract AskForEth {
      * Whosoever calls this method, Contract send him 1 ETH,
      * If the contract has suffecient balance.
      */
-    function pleaseSendOne(){
+    function sendMeOneEth(){
         if(this.balance > ONE_ETH){
             if(hasGiven[msg.sender] == 0){
                 msg.sender.transfer(ONE_ETH);
@@ -51,12 +51,19 @@ contract AskForEth {
      * If a asking wallet has already taken 1 ETH from this contract then return false
      * Before sending 1 ETH also check that the Contract has suffecient balance.
      */
-    function canIReceive() constant returns (bool){
+    function can_I_Receive() constant returns (bool){
         if(hasGiven[msg.sender] == 0 && this.balance > ONE_ETH){
             return true;
         } else {
             return false;
         }
+    }
+    
+    /*
+     * Returns the balance of the ETH this Smart Contract has
+     */
+    function getContractBalance() constant returns(uint){
+        return this.balance;
     }
     
     /* 
