@@ -52,7 +52,7 @@ contract AskForEth {
      * Before sending 1 ETH also check that the Contract has suffecient balance.
      */
     function can_I_Receive() constant returns (bool){
-        if(hasGiven[msg.sender] == 0 && this.balance > ONE_ETH){
+        if(hasGiven[msg.sender] == 0 && this.balance >= ONE_ETH){
             return true;
         } else {
             return false;
