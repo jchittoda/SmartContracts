@@ -35,7 +35,7 @@ contract AskForEth {
      * If the contract has suffecient balance.
      */
     function sendMeOneEth(){
-        if(this.balance > ONE_ETH){
+        if(this.balance >= ONE_ETH){
             if(hasGiven[msg.sender] == 0){
                 msg.sender.transfer(ONE_ETH);
                 hasGiven[msg.sender] = ONE_ETH;
