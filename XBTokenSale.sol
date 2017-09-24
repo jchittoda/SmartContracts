@@ -200,7 +200,7 @@ contract XBTokenSale is NonTradableToken, Pausable {
     address public wallet;
 
     // Total XB tokens for PreSale
-    uint256 public constant TOTAL_XB_TOKEN_FOR_PRE_SALE = 1000000 * (10**decimals); //1 million * 10^decimals
+    uint256 public constant TOTAL_XB_TOKEN_FOR_PRE_SALE = 10000000 * (10**decimals); //10 million * 10^decimals
 
     // how many token units a buyer gets per ETH
     uint256 public rate = 500; //500 XB tokens per ETH
