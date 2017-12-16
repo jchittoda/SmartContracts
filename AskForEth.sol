@@ -1,8 +1,8 @@
-pragma solidity ^0.4.11;
+pragma solidity ^0.4.19;
 
 /*
  * This Smart Contract has been created for demo purpose.
- * This Smart Contract can send 1 free ETH to a wallet. Once 1 ETH is given
+ * This Smart Contract can send 0.1 free ETH to a wallet. Once 0.1 ETH is given
  * to a wallet, same wallet cannot receive more ETHs from this Smart Contract
  *
  * Jitendra Chittoda (c) 2017, The MIT Licence.
@@ -13,14 +13,16 @@ contract AskForEth {
     address owner;
     
     /* Map of Address=>amount */
-    /* Once 1 ETH is given to a wallet, should not send again */
+    /* Once 0.1 ETH is given to a wallet, should not send again */
     mapping (address=>uint) hasGiven;
     
     /* Event for loggin InSuffecientBalance */
     event InSuffecientBalance(uint balance);
+
+    /* ETH Already Sent to address */
+    event AlreadySent();
     
-    /* 1 ETH = 10^18 Wei */
-    uint ONE_ETH = 1000000000000000000;
+    uint ONE_ETH = 0.1 ether;
     
     /*
      * Constructor of Contract.
@@ -31,14 +33,16 @@ contract AskForEth {
     }
     
     /*
-     * Whosoever calls this method, Contract send him 1 ETH,
+     * Whosoever calls this method, Contract send him 0.1 ETH,
      * If the contract has suffecient balance.
      */
-    function sendMeOneEth(){
+    function sendMeSomeEth(){
         if(this.balance >= ONE_ETH){
             if(hasGiven[msg.sender] == 0){
                 msg.sender.transfer(ONE_ETH);
                 hasGiven[msg.sender] = ONE_ETH;
+            } else {
+                AlreadySent();
             }
         } else {
             InSuffecientBalance(this.balance);
@@ -46,12 +50,12 @@ contract AskForEth {
     }
     
     /*
-     * Can a wallet receive the 1 ETH from this Contract?
-     * If a asking wallet has not taken 1 ETH then contract returns true
-     * If a asking wallet has already taken 1 ETH from this contract then return false
-     * Before sending 1 ETH also check that the Contract has suffecient balance.
+     * Can a wallet receive the 0.1 ETH from this Contract?
+     * If a asking wallet has not taken 0.1 ETH then contract returns true
+     * If a asking wallet has already taken 0.1 ETH from this contract then return false
+     * Before sending 0.1 ETH also check that the Contract has suffecient balance.
      */
-    function can_I_Receive() constant returns (bool){
+    function can_I_ReceiveEth() constant returns (bool){
         if(hasGiven[msg.sender] == 0 && this.balance >= ONE_ETH){
             return true;
         } else {
