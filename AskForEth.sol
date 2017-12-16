@@ -28,7 +28,7 @@ contract AskForEth {
      * Constructor of Contract.
      * Initialize the owner
      */
-    function AskForEth(){
+    function AskForEth() public {
         owner = msg.sender;
     }
     
@@ -36,7 +36,7 @@ contract AskForEth {
      * Whosoever calls this method, Contract send him 0.1 ETH,
      * If the contract has suffecient balance.
      */
-    function sendMeSomeEth(){
+    function sendMeSomeEth() public {
         if(this.balance >= ONE_ETH){
             if(hasGiven[msg.sender] == 0){
                 msg.sender.transfer(ONE_ETH);
@@ -55,7 +55,7 @@ contract AskForEth {
      * If a asking wallet has already taken 0.1 ETH from this contract then return false
      * Before sending 0.1 ETH also check that the Contract has suffecient balance.
      */
-    function can_I_ReceiveEth() constant returns (bool){
+    function can_I_ReceiveEth() public constant returns (bool){
         if(hasGiven[msg.sender] == 0 && this.balance >= ONE_ETH){
             return true;
         } else {
@@ -66,7 +66,7 @@ contract AskForEth {
     /*
      * Returns the balance of the ETH this Smart Contract has
      */
-    function getContractBalance() constant returns(uint){
+    function getContractBalance() public constant returns(uint){
         return this.balance;
     }
     
@@ -74,12 +74,12 @@ contract AskForEth {
      * When killed by Owner,
      * Send all the Ethers this contract holds back to owner
      */
-    function kill() isOwner{
-        suicide(owner);
+    function kill() public isOwner{
+        selfdestruct(owner);
     }
     
     /* Allow this SmartContract to Receive Ethers */
-    function() payable{
+    function() public payable{
     }
     
     /* Modifier isOwner */
